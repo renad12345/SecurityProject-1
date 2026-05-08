@@ -39,7 +39,11 @@ Open browser: http://localhost:5000
 ```
 python secure_app.py
 ```
-Open browser: http://localhost:5001
+Open browser: https://localhost:5001
+
+Note:
+The browser may show "Not Secure" because a self-signed certificate is used.
+However, the connection is still encrypted using HTTPS (TLS), In real-world deployment, a trusted certificate authority (CA) such as Let's Encrypt should be used.
 
 ---
 
@@ -88,7 +92,9 @@ Open browser: http://localhost:5001
 ### 5. Session & Encryption
 - Vulnerable App: Secret key is "123" - trivially guessable, no cookie protection flags
 - Secure App: Strong random secret key, HttpOnly=True blocks JavaScript from reading cookies,
-  SameSite=Lax prevents CSRF attacks, Ready for HTTPS with ssl_context configuration
+  SameSite=Lax prevents CSRF attacks
+  SESSION_COOKIE_SECURE ensures cookies are only sent over HTTPS
+  HTTPS is implemented using Flask ssl_context='adhoc' (self-signed certificate)
 
 ---
 
